@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var PORT = 8080;
+var PORT = process.env.PORT || 8080;
 //-----------------------------------------------------------------
 
 
@@ -36,7 +36,7 @@ connection.connect(function(err){
 
 //Routing----------------------------------------------------------
 app.use(express.static('public'));
-require('./routing/api-routing.js')(app, connection);
+require('./routing/api-routing.js')(app, connection, mysql);
 //-----------------------------------------------------------------
 
 

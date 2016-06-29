@@ -1,4 +1,4 @@
-module.exports = function(app, db){
+module.exports = function(app, db, mysql){
 	app.get('/', function(){
 		res.sendFile(path.join(__dirname, 'public', 'index.html'));
 	});
@@ -10,8 +10,15 @@ module.exports = function(app, db){
 		});
 	});
 
-	app.get('/coolness-chart/:order', function(req, res){
-		db.query('SELECT * FROM actors ORDER BY coolness_points ' + req.params.order.toUpperCase(), function(err, result){
+	app.get('/coolness-chart/asc', function(req, res){
+		db.query('SELECT * FROM actors ORDER BY coolness_points ASC', function(err, result){
+			if (err) { throw err }
+			res.json(result);
+		});
+	});
+
+		app.get('/coolness-chart/desc', function(req, res){
+		db.query('SELECT * FROM actors ORDER BY coolness_points DESC', function(err, result){
 			if (err) { throw err }
 			res.json(result);
 		});
