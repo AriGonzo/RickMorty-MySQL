@@ -1,5 +1,17 @@
+body {
+	background-color: #eee;
+}
+
+#mainJumbo {
+	background-image: url('../assets/images/background.jpg');
+}
+
 #templateContainer {
 	margin-top: 25px;
+}
+
+.buttonFonts {
+	font-size: 15pt;
 }
 
 #attitude {
@@ -9,4 +21,8 @@
 
 #newCharacterForm {
 	margin-bottom: 30px;
+}
+
+.characterName {
+	cursor: pointer;
 }
