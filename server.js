@@ -1,8 +1,8 @@
-var express 	= require('express');
-var mysql 		= require('mysql');
-var app 			= express();
-var path			= require('path');
-var PORT			= 8080;
+var express = require('express');
+var mysql = require('mysql');
+var app = express();
+var path = require('path');
+var PORT = 8080;
 
 var connection = mysql.createConnection({
 	host: 'localhost',
@@ -60,5 +60,5 @@ app.get('/attitudes', function(req, res){
 });
 
 app.listen(PORT, function(){
-console.log("listening on", PORT)
+	console.log("listening on", PORT)
 });
