@@ -79,6 +79,8 @@ singleCastCall = function(url){
 }
 
 getAttitudes = function(){
+	$('#attitude').empty();
+	$('#attitude').append('<option value="false">Select Attitude</option>');
 	$.get('/attitudes', function(attitudeArray){
 		attitudeArray.forEach(function(attitudeObj){
 			var optionElement = $('<option>');
@@ -93,6 +95,25 @@ viewCharacter = function(){
 	singleCastCall('/characters/'+characterId);
 }
 
+addCharacter = function(){
+	$('#templateContainer').loadTemplate("../templates/newCharacterTemplate.html");
+}
+
+submitCharacter = function(){
+	var characterData = {
+		name: $('#characterName').val().trim(),
+		coolness_points: $('#coolnessPoints').val().trim(),
+		attitude: $('#attitudeInput').val().trim(),
+		image: $('#characterImage').val().trim(),
+		description: $('#characterDesc').val().trim()
+	}
+
+	$.post('/newCharacter', characterData, function(){
+		getAttitudes();
+		castPage();
+	});
+}
+
 clearTemplateDiv = function(){
 	$('#attitude').val("false")
 	$('#templateContainer').empty();
@@ -105,5 +126,7 @@ getAttitudes();
 $('#castBtn').on('click', castPage);
 $('#coolnessBtn').on('click', coolnessPage);
 $('#uncoolnessBtn').on('click', uncoolnessPage);
-$(document).on('click', '.characterName', viewCharacter);
 $('#attitude').on('change', attitudeChange);
+$('#addNewCharacter').on('click', addCharacter);
+$(document).on('click', '.characterName', viewCharacter);
+$(document).on('click', '#submitCharacter', submitCharacter);

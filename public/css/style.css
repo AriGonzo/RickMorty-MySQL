@@ -6,3 +6,7 @@
 	width: inherit;
 	display: inline;
 }
+
+#newCharacterForm {
+	margin-bottom: 30px;
+}

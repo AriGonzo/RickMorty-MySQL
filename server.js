@@ -2,7 +2,14 @@ var express = require('express');
 var mysql = require('mysql');
 var app = express();
 var path = require('path');
+var bodyParser = require('body-parser');
 var PORT = 8080;
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.text());
+app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
 var connection = mysql.createConnection({
 	host: 'localhost',
@@ -54,8 +61,14 @@ app.get('/characters/:id', function(req, res){
 });
 
 app.get('/attitudes', function(req, res){
-	connection.query('SELECT attitude FROM actors', function(err, results){
+	connection.query('SELECT attitude FROM actors ORDER BY attitude ASC', function(err, results){
 		res.json(results)
+	});
+});
+
+app.post('/newCharacter', function(req, res){
+	connection.query('INSERT INTO actors SET ?', req.body, function(){
+		res.sendStatus(200);
 	});
 });
 
